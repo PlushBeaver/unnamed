@@ -44,9 +44,19 @@ enable service and configure upstreams:
   services.unnamed = {
     enable = true;
     upstreams = [
-      ".=8.8.8.8"
-      ".udp.example.com=192.0.2.100"
-      ".tcp.example.com=192.0.2.200/tcp"
+      {
+        domain = ".";
+        server = "8.8.8.8";
+      }
+      {
+        domain = ".udp.example.com";
+        server = "192.0.2.100";
+      }
+      {
+        domain = ".tcp.example.com";
+        server = "192.0.2.200";
+        protocol = "tcp";
+      }
     ];
   };
 }
