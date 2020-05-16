@@ -105,6 +105,11 @@ Longest match is preferred. Use . domain for default nameserver.
         upstream 'domain=host:port/proto'
 ```
 
+**Q:** Can't dnsmasq/unbound/named do the job?
+
+**A:** No. Probably because translating protocols would be too hard
+    in all scenarios these production-grade servers support.
+
 **Q:** Why not extend <https://github.com/jrmdev/dnsplit>?
 
 **A:** Viral GPL-3.0, external dependencies.
