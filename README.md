@@ -6,18 +6,54 @@ It is useful when some upstreams are UDP-only and some are TCP-only.
 
 ## Installation
 
+### Manual
+
 Unnamed has no dependencies beyond Go standard library.
 
-```sh
+```shell
 go install https://github.com/PlushBeaver/unnamed
 ```
 
 Because Go standard library does not support dropping privileges,
 to use port 53 you can set capabilities and run the program as normal user:
 
-```
+```shell
 sudo setcap cap_net_bind_service+ep $GOPATH/bin/unnamed
 ```
+
+
+### NixOS
+
+In your `/etc/nixos/configuration.nix`, attach local repository,
+enable service and configure upstreams:
+
+```nix
+{
+  imports = [
+    # ...
+    /path/to/unnamed/config.nix
+  ];
+
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      # ...
+      unnamed = pkgs.callPackage /path/to/unnamed {};
+    };
+  };
+
+  services.unnamed = {
+    enable = true;
+    upstreams = [
+      ".=8.8.8.8"
+      ".udp.example.com=192.0.2.100"
+      ".tcp.example.com=192.0.2.200/tcp"
+    ];
+  };
+}
+```
+
+Set `services.unnamed.resolveLocalQueries = false` if you don't want to use
+Unnamed as your default resolver.
 
 
 ## Usage
