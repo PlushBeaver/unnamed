@@ -70,16 +70,19 @@ Unnamed only supports DNS over UDP queries and no DNSSEC, etc fancy stuff.
 ```
 Usage of unnamed:
 
-  unnamed -upstream .tcp.local=tcp://192.0.2.100:1053 -upstream .=192.0.2.200
+  unnamed -upstream .tcp.local=192.0.2.100:1053/tcp -upstream .=192.0.2.200
 
 Default upstream protocol is UDP, default port is 53.
 Longest match is preferred. Use . domain for default nameserver.
 
+  -dumpconfig
+        dump configuration on startup
   -listen string
         address to receive DNS on (default "127.0.0.1:53")
   -upstream value
-        upstream 'domain=proto://host:port'
+        upstream 'domain=host:port/proto'
 ```
 
-Q: Why not extend <https://github.com/jrmdev/dnsplit>?
-A: Viral GPL-3.0, external dependencies.
+**Q:** Why not extend <https://github.com/jrmdev/dnsplit>?
+
+**A:** Viral GPL-3.0, external dependencies.
