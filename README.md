@@ -14,8 +14,20 @@ Unnamed has no dependencies beyond Go standard library.
 go install https://github.com/PlushBeaver/unnamed
 ```
 
-Because Go standard library does not support dropping privileges,
-to use port 53 you can set capabilities and run the program as normal user:
+If you plan to start Unnamed as a service, install the binary to system
+location and deploy the systemd unit (edit `UNNAMED_OPTS` first):
+
+```shell
+$EDITOR unnamed.service
+sudo install -D -m 755 -t /usr/local/bin $GOPATH/bin/unnamed
+sudo install -D -m 644 -t /etc/systemd/system unnamed.service
+sudo systemctl enable unnamed
+sudo systemctl start unnamed
+```
+
+If you don't plan to use systemd, because Go standard library does not support
+dropping privileges, to use port 53 you can set capabilities and run the
+program as normal user:
 
 ```shell
 sudo setcap cap_net_bind_service+ep $GOPATH/bin/unnamed

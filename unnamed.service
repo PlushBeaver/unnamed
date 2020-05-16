@@ -1,0 +1,14 @@
+[Unit]
+After=network.target systemd-resolved.service
+Description=Unnamed DNS forwarder
+
+[Service]
+Environment="UNNAMED_OPTS="
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+ExecStart=/usr/local/bin/unnamed $UNNAMED_OPTS
+Group=nogroup
+Type=simple
+User=nobody
+
+[Install]
+WantedBy=multi-user.target
